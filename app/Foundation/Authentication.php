@@ -53,12 +53,12 @@ trait Authentication
      */
     public function postLogin(Request $request)
     {
+        /*验证规则*/
         $this->validate($request, [
             $this->loginUsername() => 'required', 'password' => 'required',
         ]);
 
         $credentials = $this->getCredentials($request);
-
 
         if ($this->loginAttempt($credentials, $request->has('remember'))) {
             return $this->handleUserWasAuthenticated($request);
@@ -69,11 +69,39 @@ trait Authentication
             ->withErrors($this->errorInfo);
     }
 
+    /**
+     * 登陆尝试
+     * @param  array   $credentials [description]
+     * @param  boolean $remember    [description]
+     * @return [type]               [description]
+     */
     protected function loginAttempt(array $credentials = [], $remember = FALSE)
     {
+        /* 旧 用户中心存在检查*/
         $Oldmember = Oldmember::where('sid', $credentials['sid'])->get();
         if (isset($Oldmember[0])) 
         {
+            /*密码验核*/
+
+            if (SAuth::passwordVerify($credentials['password'], $Oldmember[0]->password, $Oldmember[0]->salt)) 
+            {
+                /* 新 框架 用户内容表是否创建*/
+                if ($this->isUserinNewTable($Oldmember[0]->sid)) {
+                    return True;
+                }
+                else
+                {
+                    /*添加用户数据 到 新框架用户表*/
+                    return $this->addUsertoNewTable($Oldmember[0]->uid, $remember)
+                    ? True
+                    : FALSE;
+                }
+            }
+            else
+            {
+                array_push($this->errorInfo, '密码错误！');
+                return FALSE;
+            }
             
         }
         else
@@ -81,6 +109,29 @@ trait Authentication
             array_push($this->errorInfo, '用户不存在！');
             return FALSE;
         }
+    }
+
+
+    protected function isUserinNewTable($sid = '')
+    {
+        $user = User::where('sid', $sid)->get();
+        return isset($user[0]);
+    }
+
+
+    /**
+     * 添加用户数据 到 新框架用户表
+     * @param string $uid [description]
+     */
+    protected function addUsertoNewTable($uid = '')
+    {
+        $user = Oldmember::find($uid);
+        $new['name'] = $user->idcard->name;
+        $new['grade'] = $user->idcard->grade;
+        $new['sid'] = $user->idcard->sid;
+        $new['nickname'] = $user->nickname;
+        $new['email'] = $user->email;
+        return User::create($new);
     }
 
     /**
@@ -96,6 +147,11 @@ trait Authentication
         return redirect()->intended($this->getRedirectPath());
     }
 
+
+    protected function getRedirectPath()
+    {
+        return property_exists($this, 'redirectPath') ? $this->redirectPath : '/';
+    }
 
     /**
      * Get the needed authorization credentials from the request.

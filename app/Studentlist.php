@@ -41,5 +41,9 @@ class Studentlist extends Model
 	 */
 	protected $fillable=[];
 
+	public function user()
+	{
+	    return $this->belongsTo('App\Oldmember', 'sid', 'sid');
+	}
 
 }	
