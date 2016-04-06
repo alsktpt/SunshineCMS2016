@@ -35,7 +35,12 @@ class SunshineAuth{
 	{
 		return md5(md5($postPassword).$salt) === $queryPassword;
 	}
-
+	
+	/**
+	 * 创建登陆session
+	 * @param  [type] $uid [description]
+	 * @return [type]      [description]
+	 */
 	public function createSession($uid)
 	{
 		session(['Sunshineid' => $uid]);

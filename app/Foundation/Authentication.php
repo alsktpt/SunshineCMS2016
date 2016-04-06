@@ -35,8 +35,9 @@ trait Authentication
      */
     public function getLogin()
     {
-
-        return view($this->getLoginView());
+        return SAuth::user() === FALSE
+        ? view($this->getLoginView())
+        : redirect()->intended($this->getRedirectPath());
     }
 
 
@@ -60,8 +61,8 @@ trait Authentication
 
         $credentials = $this->getCredentials($request);
 
-        if ($this->loginAttempt($credentials, $request->has('remember'))) {
-            return $this->handleUserWasAuthenticated($request);
+        if ($this->loginAttempt($credentials)) {
+            return $this->handleUserWasAuthenticated($credentials, $request->has('remember'));
         }
 
         return redirect($this->loginPath())
@@ -75,7 +76,7 @@ trait Authentication
      * @param  boolean $remember    [description]
      * @return [type]               [description]
      */
-    protected function loginAttempt(array $credentials = [], $remember = FALSE)
+    protected function loginAttempt(array $credentials = [])
     {
         /* 旧 用户中心存在检查*/
         $Oldmember = Oldmember::where('sid', $credentials['sid'])->get();
@@ -92,7 +93,7 @@ trait Authentication
                 else
                 {
                     /*添加用户数据 到 新框架用户表*/
-                    return $this->addUsertoNewTable($Oldmember[0]->uid, $remember)
+                    return $this->addUsertoNewTable($Oldmember[0]->uid)
                     ? True
                     : FALSE;
                 }
@@ -138,19 +139,29 @@ trait Authentication
      * Send the response after the user was authenticated.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  bool  $throttles
      * @return \Illuminate\Http\Response
      */
-    protected function handleUserWasAuthenticated(Request $request)
+    protected function handleUserWasAuthenticated(array $credentials = [], $remember = FALSE)
     {
-
+        $user = User::where('sid', $credentials[$this->loginUsername()])->get();
+        /*建立用户session 传参为用户内容表的id*/
+        SAuth::createSession($user[0]->id);
         return redirect()->intended($this->getRedirectPath());
     }
 
 
     protected function getRedirectPath()
     {
-        return property_exists($this, 'redirectPath') ? $this->redirectPath : '/';
+        $redir = SAuth::redirectPath();
+        SAuth::forgetRedir();
+        if ($redir) 
+        {
+            return $redir;
+        }
+        else
+        {
+            return property_exists($this, 'redirectPath') ? $this->redirectPath : '/';
+        }
     }
 
     /**
