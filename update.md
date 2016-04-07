@@ -1,24 +1,32 @@
-alpha version 0.5.1(2016/4/6)
+alpha version 0.5.8（2016/4/7)
 [
-	1：Composer自动更新，导致系统底层修改的代码遗失！( ▼-▼ )
-	2：重构！！！！！！！
+	1：建立了角色表，权限表（参见Migration）
+	2：完成了编辑文章的权限Policy
+]
+alpha version 0.5.1(2016/4/7)
+[
+	1：添加了修改文章的入口
+]
+alpha version 0.5.0(2016/4/6)
+[
+	1：由于Composer自动更新，导致系统底层修改的代码遗失！ ( ▼-▼ )
+	2：登陆类重构！！！！！！！ (╯▔.—▔)╯╧╧
+	3：在Github上建立了Repository，以防悲剧再次出现。o(*￣▽￣*)ブKira
 ]
 alpha version 0.4.9(2016/4/6)
 [
 	1：XSS过滤库引入
-	2：XSS防注入
 ]
 alpha version 0.4.7(2016/4/2)
 [
 	1：重写代码，完成松隅合项目重构
-	2：修复redirect session
-	3：投稿Controller完成
-	4：活动登记完成
-	5：活动参与
-	6：评论模型链接
-	7：文章权限Policy
+	2：修复redirect session丢失的问题
+	3：投稿提交方法构造完成
+	4：活动登记方法完成
+	5：活动互动
+	6：评论数据库设计
 	8：文章类型创建与管理
-	9：“专栏话题”模块
+	9：“专栏话题”数据库设计
 ]
 alpha version 0.3.12(2016/3/20)
 [
@@ -34,12 +42,12 @@ alpha version 0.3.9(2016/3/19)
 ]
 alpha version 0.3.0(2016/3/14)
 [
-	1：改写框架，将用户模块写入系统层
+	1：改写框架底层，将用户模块写入系统层
 	2：建立用户Facades，provider，service。
 ]
 alpha version 0.2.18(2016/3/12)
 [
-	1：Sunshine统一登陆Session，替换loginCookie
+	1：以服务器的文件驱动Session替换loginCookie
 ]
 alpha version 0.2.11(2016/3/11)
 [

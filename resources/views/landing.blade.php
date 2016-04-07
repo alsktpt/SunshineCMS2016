@@ -5,6 +5,10 @@
     @else
         <h2><a href="/login">未登录</a></h2>
     @endif
+    
+    @can('edit-post')
+        <a href="#">网站编辑入口</a>
+    @endcan
     <h5>Page {{ $posts->currentPage() }} of {{ $posts->lastPage() }}</h5>
     <hr>
     <ul>
@@ -13,7 +17,7 @@
             <a href="{{ url('article', $post->id) }}">{{ $post->title }}</a>
             <em>({{ $post->published_at }})</em>
             <p>
-                {{ str_limit($post->content) }}
+                {{ str_limit(strip_tags($post->content)) }}
             </p>
         </li>
     @endforeach

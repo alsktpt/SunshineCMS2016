@@ -3,14 +3,15 @@
 @section('content')
 <div class="container">
   <div class="row">
-    @if(SAuth::user())
-        <h2>{{ SAuth::user()->nickname }}</h2>
+    @if(Auth::user())
+        <h2>{{ Auth::user()->nickname }}</h2>
     @endif
+
   </div>
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
       <div class="panel panel-default">
-        <div class="panel-heading">新增 Page</div>
+        <div class="panel-heading">修改 Page</div>
 
         <div class="panel-body">
 
@@ -25,13 +26,12 @@
             </div>
           @endif
 
-
-          {!! Form::open(['url'=>'/post']) !!}
-            {!! Form::text('title', null, [
-              'class'=>'form-control', 
+          {!! Form::open(['url'=>'/edit']) !!}
+            {!! Form::text('title', $article->title, [
+              'class' => 'form-control', 
               ]) !!}
             <br>
-            {!! Form::textarea('content', null, [
+            {!! Form::textarea('content', $article->content, [
               'class'=>'form-control',
               'rows'=>'10'
               ]) !!}
@@ -41,7 +41,7 @@
             {!! Form::input('time','published_time',date('H:i'),['class'=>'form-control']) !!}
             <br>
             <br>
-            {!! Form::submit('新增 Page',['class'=>'btn btn-success']) !!}
+            {!! Form::submit('提交修改',['class'=>'btn btn-success']) !!}
           {!! Form::close() !!}
 
         </div>

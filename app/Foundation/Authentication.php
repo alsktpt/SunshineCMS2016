@@ -56,7 +56,7 @@ trait Authentication
     {
         /*验证规则*/
         $this->validate($request, [
-            $this->loginUsername() => 'required', 'password' => 'required',
+            $this->loginUsername() => 'required', 'password' => 'required|min:6',
         ]);
 
         $credentials = $this->getCredentials($request);

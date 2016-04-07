@@ -23,10 +23,17 @@ Route::group(['namespace' => 'Frontend'], function(){
 		Route::get('/user', 'UserController@index');
 		Route::get('/post', 'PostController@create');
 
-
+		Route::get('/post/{id}', 'PostController@edit');
+		Route::post('/post/update', 'PostController@update');
 		Route::post('/post', 'PostController@store');
 
 	});
+});
 
-	Route::get('/api/activities', 'ActivityController@index');
+Route::group(['namespace' => 'Backend'], function(){
+
+});
+
+Route::group(['namespace' => 'Api'], function(){
+	
 });

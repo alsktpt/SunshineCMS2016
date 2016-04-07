@@ -27,5 +27,16 @@ class AuthServiceProvider extends ServiceProvider
         parent::registerPolicies($gate);
 
         //
+        
+        $permissions = \App\Permission::with('roles')->get();
+        foreach ($permissions as $permission) {
+            $gate->define($permission->name, function($user) use ($permission) {
+                return $user->hasPermission($permission);
+            });
+        }
+
+        $gate->define('update-post', function ($user, $post) {
+            return $user->id === $post->user_id;
+        });
     }
 }

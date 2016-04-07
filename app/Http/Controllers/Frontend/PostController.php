@@ -9,7 +9,7 @@ use App\Article;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use SAuth, Input, Redirect;
+use SAuth, Input, Redirect, Gate;
 
 class PostController extends Controller
 {
@@ -65,9 +65,22 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $article = Article::find($id);
+        return $this->editCheck($article)
+        ? view('write.edit', compact('article'))
+        : abort(403);
     }
 
+
+    public function editCheck($article)
+    {
+        if (! Gate::allows('edit-post')) {
+            if (Gate::denies('update-post', $article)) {
+                return FALSE;
+            }
+        }
+        return TRUE;
+    }
     /**
      * Update the specified resource in storage.
      *
