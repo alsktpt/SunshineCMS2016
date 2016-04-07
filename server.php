@@ -10,10 +10,10 @@
 /**
  * 资讯新站点 - 阳光网站子站点未命名
  *
- * @framework    Laravel 5.1.11 LTS
+ * @framework    Laravel 5.1.33 LTS
  * @author 	     Sunshine Studio, Research & Design Center, 2016 Project Group [Unnamed]
  * @director 	 Cornwallis Cheng <ktpt@me.com> <Als_ktpt | Saberchan2014>
- * @version      alpha version 0.4.7
+ * @version      alpha version 0.5.8
  */
 
 $uri = urldecode(

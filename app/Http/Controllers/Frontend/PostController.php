@@ -75,7 +75,7 @@ class PostController extends Controller
     public function editCheck($article)
     {
         if (! Gate::allows('edit-post')) {
-            if (Gate::denies('update-post', $article)) {
+            if (Gate::denies('is-post-owner', $article)) {
                 return FALSE;
             }
         }
