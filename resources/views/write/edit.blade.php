@@ -26,7 +26,8 @@
             </div>
           @endif
 
-          {!! Form::open(['url'=>'/edit']) !!}
+          {!! Form::open(['url'=>'/post/update']) !!}
+            {!! Form::hidden('id', $article->id) !!}
             {!! Form::text('title', $article->title, [
               'class' => 'form-control', 
               ]) !!}
@@ -37,8 +38,8 @@
               ]) !!}
             <br>
             {!! Form::checkbox('define_published_at', null, null, []) !!}
-            {!! Form::input('date','published_date',date('Y-m-d'),['class'=>'form-control']) !!}
-            {!! Form::input('time','published_time',date('H:i'),['class'=>'form-control']) !!}
+            {!! Form::input('date','published_date',substr($article->published_at, 0, 10),['class'=>'form-control']) !!}
+            {!! Form::input('time','published_time',substr($article->published_at, 11, 5),['class'=>'form-control']) !!}
             <br>
             <br>
             {!! Form::submit('提交修改',['class'=>'btn btn-success']) !!}

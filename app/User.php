@@ -69,4 +69,10 @@ class User extends Model implements AuthenticatableContract,
         );
     }
 
+
+    public function articles()
+    {
+        return $this->hasMany(Articles::class);
+    }
+
 }

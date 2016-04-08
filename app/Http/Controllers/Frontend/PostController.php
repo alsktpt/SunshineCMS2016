@@ -9,7 +9,7 @@ use App\Article;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use SAuth, Input, Redirect, Gate;
+use Input, Redirect, Gate;
 
 class PostController extends Controller
 {
@@ -21,8 +21,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        $user = SAuth::user();
-        return view('write.post', compact('user'));
+        return view('write.post');
     }
 
 
@@ -66,13 +65,13 @@ class PostController extends Controller
     public function edit($id)
     {
         $article = Article::find($id);
-        return $this->editCheck($article)
+        return $this->editPermissionCheck($article)
         ? view('write.edit', compact('article'))
         : abort(403);
     }
 
 
-    public function editCheck($article)
+    public function editPermissionCheck($article)
     {
         if (! Gate::allows('edit-post')) {
             if (Gate::denies('is-post-owner', $article)) {
@@ -81,6 +80,7 @@ class PostController extends Controller
         }
         return TRUE;
     }
+
     /**
      * Update the specified resource in storage.
      *
@@ -88,9 +88,13 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Requests\StoreArticleRequest $request)
     {
-        //
+        if(Input::get('define_published_at') !== null)
+        {
+            $new['published_at'] = Carbon::createFromTimestamp(strtotime(Input::get('published_date').''.Input::get('published_time')));
+        }
+        dd(Article::find(Input::get('id')));
     }
 
     /**
@@ -101,6 +105,6 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
 }

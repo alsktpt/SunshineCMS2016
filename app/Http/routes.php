@@ -35,5 +35,5 @@ Route::group(['namespace' => 'Backend'], function(){
 });
 
 Route::group(['namespace' => 'Api'], function(){
-	
+
 });

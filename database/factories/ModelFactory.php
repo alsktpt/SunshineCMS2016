@@ -21,9 +21,12 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(App\Article::class, function ($faker) {
+    $users_id = \App\User::lists('id')->toArray();
     return [
         'title' => $faker->sentence(mt_rand(3, 10)),
-        'content' => join("\n\n", $faker->paragraphs(mt_rand(3, 6))),
+        'content' => $faker->paragraph,
+        'user_id' => $faker->randomElement($users_id);
+        'last_user_id' => $faker->randomElement($user_id);
         'published_at' => $faker->dateTimeBetween('-1 month', '+3 days'),
     ];
 });

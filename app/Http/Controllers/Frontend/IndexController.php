@@ -32,10 +32,9 @@ class IndexController extends Controller
         $activities = Activity::where('start_at', '>=', Carbon::yesterday())
         ->orderBy('start_at', 'desc')->get();
         
-        // 渲染视图
+        // 渲染视图 
         return view('landing', compact('posts','activities'));
     }
-
 
     /**
      * Display the specified resource.
