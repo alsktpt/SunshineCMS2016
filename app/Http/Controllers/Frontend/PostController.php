@@ -69,19 +69,10 @@ class PostController extends Controller
     public function edit($id)
     {
         $article = Article::decodefind($id);
-        return $this->editPermissionCheck($article)
-        ? view('write.edit', compact('article'))
-        : abort(403);
+        $this->authorize('canEdit', $article);
+        return view('write.edit', compact('article'));
     }
 
-
-    public function editPermissionCheck($article)
-    {
-        if (! Gate::allows('edit-post')) {
-            $this->authorize('is-post-owner', $article);
-        }
-        return TRUE;
-    }
 
     /**
      * Update the specified resource in storage.
@@ -92,11 +83,16 @@ class PostController extends Controller
      */
     public function update(Requests\StoreArticleRequest $request)
     {
+        $update = $request->except(['id', 'define_published_at' , 'published_date', 'published_time']);
+        $update['last_editor_id'] = Auth::user()->id;
+        $article = Article::decodefind(Input::get('id'));
         if(Input::get('define_published_at') !== null)
         {
             $update['published_at'] = $this->createCarbon();
         }
-        dd(Article::decodefind(Input::get('id')));
+        $article->update($update);
+
+        return redirect('/');
     }
 
     /**

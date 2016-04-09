@@ -8,7 +8,7 @@
  */
 
 /**
- * 资讯新站点 - 阳光网站子站点未命名
+ * 阳光网站内容管理框架
  *
  * @framework    Laravel 5.1.33 LTS
  * @author 	     Sunshine Studio, Research & Design Center, 2016 Project Group [Unnamed]
