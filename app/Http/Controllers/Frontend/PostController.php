@@ -64,7 +64,7 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $article = Article::find($id);
+        $article = Article::decodefind($id);
         return $this->editPermissionCheck($article)
         ? view('write.edit', compact('article'))
         : abort(403);
@@ -74,9 +74,7 @@ class PostController extends Controller
     public function editPermissionCheck($article)
     {
         if (! Gate::allows('edit-post')) {
-            if (Gate::denies('is-post-owner', $article)) {
-                return FALSE;
-            }
+            $this->authorize('is-post-owner', $article);
         }
         return TRUE;
     }

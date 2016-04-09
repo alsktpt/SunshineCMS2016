@@ -61,6 +61,7 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->hasRole($permission->roles);
     }
+    
     // 给用户分配角色
     public function assignRole($role)
     {
@@ -69,6 +70,10 @@ class User extends Model implements AuthenticatableContract,
         );
     }
 
+    public function owns($post)
+    {
+        return $this->id === $post->user_id;
+    }
 
     public function articles()
     {

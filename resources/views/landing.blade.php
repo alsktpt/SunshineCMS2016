@@ -14,7 +14,7 @@
     <ul>
     @foreach ($posts as $post)
         <li>
-            <a href="{{ url('article', $post->id) }}">{{ $post->title }}</a>
+            <a href="{{ url('article', base64_encode($post->id)) }}">{{ $post->title }}</a>
             <em>({{ $post->published_at }})</em>
             <p>
                 {{ str_limit(strip_tags($post->content)) }}

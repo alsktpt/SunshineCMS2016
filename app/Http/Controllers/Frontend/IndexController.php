@@ -44,7 +44,7 @@ class IndexController extends Controller
      */
     public function show($id)
     {
-        return view('index.article')->withArticle(Article::find($id));
+        return view('index.article')->withArticle(Article::decodefind($id));
     }
 
 

@@ -26,7 +26,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         parent::registerPolicies($gate);
 
-        // 权限policy初始化
+        // 角色权限初始化
         
         $permissions = \App\Permission::with('roles')->get();
         foreach ($permissions as $permission) {
@@ -36,7 +36,7 @@ class AuthServiceProvider extends ServiceProvider
         }
 
         $gate->define('is-post-owner', function ($user, $post) {
-            return $user->id === $post->user_id;
+            return $user->owns($post);
         });
     }
 }

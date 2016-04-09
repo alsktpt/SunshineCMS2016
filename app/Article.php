@@ -16,8 +16,16 @@ class Article extends Model
     {
     	return $this->belongsTo(User::class);
     }
+    
+
     public function scopePublished($query)
 	{
 	    $query->where('published_at','<=',Carbon::now())->orderBy('published_at', 'desc');
 	}
+
+    public static function decodefind($id)
+    {
+        $id = base64_decode($id);
+        return self::findOrFail($id);
+    }
 }
