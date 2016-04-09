@@ -80,4 +80,15 @@ class User extends Model implements AuthenticatableContract,
         return $this->hasMany(Articles::class);
     }
 
+
+
+
+    public static function nickname($id)
+    {
+        $user = SELF::find($id, ['nickname']);
+        return $user
+        ? $user->nickname
+        : '';
+    }
+
 }

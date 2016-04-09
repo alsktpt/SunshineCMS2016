@@ -16,6 +16,8 @@
         <li>
             <a href="{{ url('article', base64_encode($post->id)) }}">{{ $post->title }}</a>
             <em>({{ $post->published_at }})</em>
+            <b>最后编辑者： {!! \App\User::nickname($post->last_editor_id) !!}</b>
+            <em>编辑于： {{ $post->updated_at->diffForHumans() }}</em>
             <p>
                 {{ str_limit(strip_tags($post->content)) }}
             </p>

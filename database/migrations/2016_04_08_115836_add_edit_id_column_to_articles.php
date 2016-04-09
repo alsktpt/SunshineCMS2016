@@ -14,7 +14,7 @@ class AddEditIdColumnToArticles extends Migration
     {
         Schema::table('articles', function (Blueprint $table) {
             $table->integer('user_id')->unsigned()->change();
-            $table->integer('last_edit_id')->unsigned();
+            $table->integer('last_editor_id')->unsigned();
         });
     }
 
@@ -27,7 +27,7 @@ class AddEditIdColumnToArticles extends Migration
     {
         Schema::table('articles', function (Blueprint $table) {
             $table->integer('user_id')->change();
-            $table->dropColumn('last_edit_id');
+            $table->dropColumn('last_editor_id');
         });
     }
 }

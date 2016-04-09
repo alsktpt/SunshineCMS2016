@@ -10,7 +10,7 @@ class Article extends Model
 {
     //
     //
-    protected $fillable=['title', 'content', 'published_at', 'user_id'];
+    protected $fillable=['title', 'content', 'published_at', 'user_id', 'last_editor_id'];
 
     public function user()
     {

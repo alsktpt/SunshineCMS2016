@@ -22,7 +22,7 @@ class IndexController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function getLandingPage(Request $request)
     {
         // 获取文章数据
         $posts = Article::latest()->published()
@@ -42,9 +42,14 @@ class IndexController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function showArticle($id)
     {
         return view('index.article')->withArticle(Article::decodefind($id));
+    }
+
+    public function getUserProfile($id)
+    {
+
     }
 
 

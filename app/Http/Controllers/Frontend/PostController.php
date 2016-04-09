@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
 
-use Carbon\Carbon;
 use App\Article;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use Input, Redirect, Gate;
+use Carbon\Carbon;
+use Auth, Input, Redirect, Gate;
 
 class PostController extends Controller
 {
@@ -44,7 +44,8 @@ class PostController extends Controller
 		}
 		$new['title'] = clean(Input::get('title'));
 		$new['content'] = clean(Input::get('content'));
-		$new['user_id'] = SAuth::user()->id;
+		$new['user_id'] = Auth::user()->id;
+        $new['last_editor_id'] = Auth::user()->id;
 
 		if (Article::create($new)) {
 			return Redirect::to('/');
