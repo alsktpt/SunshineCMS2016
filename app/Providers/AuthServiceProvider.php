@@ -34,9 +34,5 @@ class AuthServiceProvider extends ServiceProvider
                 return $user->hasPermission($permission);
             });
         }
-
-        $gate->define('is-post-owner', function ($user, $post) {
-            return $user->owns($post);
-        });
     }
 }
