@@ -11,12 +11,17 @@ class Article extends Model
     //
     //
     protected $fillable=['title', 'content', 'published_at', 'user_id', 'last_editor_id'];
+    protected $dates = ['published_at'];
 
     public function user()
     {
     	return $this->belongsTo(User::class);
     }
     
+    public function anthologies()
+    {
+        return $this->belongsToMany(Anthology::class);
+    }
 
     public function scopePublished($query)
 	{

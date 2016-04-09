@@ -1,4 +1,11 @@
-## alpha version 0.5.8（2016/4/7)
+## alpha version 0.6.4(2016/4/10)
+
+	1：403 blade
+	2：URI加密
+	3：引入Vue.js
+	4：丰富文章数据库
+	
+## alpha version 0.5.8(2016/4/7)
 
 	1：建立了角色表，权限表（参见Migration）
 	2：完成了编辑文章的权限Policy

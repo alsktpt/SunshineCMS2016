@@ -14,9 +14,7 @@ Route::group(['namespace' => 'Frontend'], function(){
     // Controllers Within The "App\Http\Controllers\Frontend" Namespace
 	Route::get('/', 'IndexController@getLandingPage');
 
-
 	Route::get('/article/{id}', 'IndexController@showArticle');
-
 
 	Route::get('/login', 'LoginController@getLogin');
 	Route::get('/logout', 'LoginController@getLogout');
@@ -41,7 +39,7 @@ Route::group(['namespace' => 'Backend'], function(){
 });
 
 Route::group(['namespace' => 'Api'], function(){
-
+	Route::resource('/api/post', 'UserController');
 });
 
 

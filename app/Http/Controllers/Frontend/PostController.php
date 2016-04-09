@@ -40,7 +40,7 @@ class PostController extends Controller
 		}
 		else
 		{
-			$new['published_at'] = Carbon::createFromTimestamp(strtotime(Input::get('published_date').''.Input::get('published_time')));
+			$new['published_at'] = $this->createCarbon();
 		}
 		$new['title'] = clean(Input::get('title'));
 		$new['content'] = clean(Input::get('content'));
@@ -55,7 +55,10 @@ class PostController extends Controller
 
     }
 
-
+    protected function createCarbon()
+    {
+        return Carbon::createFromTimestamp(strtotime(Input::get('published_date').''.Input::get('published_time')));
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -91,9 +94,9 @@ class PostController extends Controller
     {
         if(Input::get('define_published_at') !== null)
         {
-            $new['published_at'] = Carbon::createFromTimestamp(strtotime(Input::get('published_date').''.Input::get('published_time')));
+            $update['published_at'] = $this->createCarbon();
         }
-        dd(Article::find(Input::get('id')));
+        dd(Article::decodefind(Input::get('id')));
     }
 
     /**
