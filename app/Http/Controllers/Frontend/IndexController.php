@@ -25,7 +25,7 @@ class IndexController extends Controller
     public function getLandingPage(Request $request)
     {
         // 获取文章数据
-        $posts = Article::latest()->published()
+        $posts = Article::latest()->verified()->published()
         ->paginate(config('site.posts_per_page'));
 
         // 获取活动信息

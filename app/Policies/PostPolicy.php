@@ -26,7 +26,12 @@ class PostPolicy
         }
         else
         {
-            return true;
+            return TRUE;
         }
+    }
+
+    public function canDelete(\App\User $user, \App\Article $article)
+    {
+        return FALSE;
     }
 }

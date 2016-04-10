@@ -83,13 +83,18 @@ class PostController extends Controller
      */
     public function update(Requests\StoreArticleRequest $request)
     {
+
+        $article = Article::decodefind(Input::get('id'));
+        $this->authorize('canEdit', $article);
+
         $update = $request->except(['id', 'define_published_at' , 'published_date', 'published_time']);
         $update['last_editor_id'] = Auth::user()->id;
-        $article = Article::decodefind(Input::get('id'));
+
         if(Input::get('define_published_at') !== null)
         {
             $update['published_at'] = $this->createCarbon();
         }
+        
         $article->update($update);
 
         return redirect('/');

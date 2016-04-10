@@ -22,7 +22,10 @@ class Article extends Model
     {
         return $this->belongsToMany(Anthology::class);
     }
-
+    public function scopeVerified($query)
+    {
+        $query->where('verified', '1');
+    }
     public function scopePublished($query)
 	{
 	    $query->where('published_at','<=',Carbon::now())->orderBy('published_at', 'desc');
