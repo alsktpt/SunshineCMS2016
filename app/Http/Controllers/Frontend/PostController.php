@@ -33,19 +33,12 @@ class PostController extends Controller
      */
     public function store(Requests\StoreArticleRequest $request)
     {
-
-		if(Input::get('define_published_at') === null)
-		{
-			$new['published_at'] = Carbon::now();
-		}
-		else
-		{
-			$new['published_at'] = $this->createCarbon();
-		}
 		$new['title'] = clean(Input::get('title'));
 		$new['content'] = clean(Input::get('content'));
 		$new['user_id'] = Auth::user()->id;
         $new['last_editor_id'] = Auth::user()->id;
+        $new['published_at'] = $this->createCarbon();
+        $new['verified'] = config('article_default_verified');
 
 		if (Article::create($new)) {
 			return Redirect::to('/');
@@ -56,6 +49,13 @@ class PostController extends Controller
     }
 
     protected function createCarbon()
+    {
+        return Input::get('define_published_at') === null
+        ? Carbon::now()
+        : $this->createCarbonByUserDefine();
+    }
+
+    protected function createCarbonByUserDefine()
     {
         return Carbon::createFromTimestamp(strtotime(Input::get('published_date').''.Input::get('published_time')));
     }
@@ -68,7 +68,7 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $article = Article::decodefind($id);
+        $article = Article::decodeFind($id);
         $this->authorize('canEdit', $article);
         return view('write.edit', compact('article'));
     }
@@ -84,7 +84,7 @@ class PostController extends Controller
     public function update(Requests\StoreArticleRequest $request)
     {
 
-        $article = Article::decodefind(Input::get('id'));
+        $article = Article::decodeFind(Input::get('id'));
         $this->authorize('canEdit', $article);
 
         $update = $request->except(['id', 'define_published_at' , 'published_date', 'published_time']);
@@ -92,13 +92,14 @@ class PostController extends Controller
 
         if(Input::get('define_published_at') !== null)
         {
-            $update['published_at'] = $this->createCarbon();
+            $update['published_at'] = $this->createCarbonByUserDefine();
         }
-        
+
         $article->update($update);
 
         return redirect('/');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -108,6 +109,6 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        
+        Article::decodeDelete($id);
     }
 }

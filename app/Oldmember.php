@@ -47,16 +47,16 @@ class Oldmember extends Model
 	 */
 	public function idcard()
 	{
-		return $this->hasOne('App\Studentlist', 'sid', 'sid');
+		return $this->hasOne('\App\Studentlist', 'sid', 'sid');
 	}
 
 	/**
 	 * 关联到User内容表
 	 * @return [type] [description]
 	 */
-	public function belongs()
+	public function user()
 	{
-	    return $this->belongsTo('App\User', 'sid', 'sid');
+	    return $this->belongsTo('\App\User', 'sid', 'sid');
 	}
 
 

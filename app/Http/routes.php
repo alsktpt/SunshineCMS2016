@@ -13,14 +13,14 @@
 Route::group(['namespace' => 'Frontend'], function(){
     // Controllers Within The "App\Http\Controllers\Frontend" Namespace
 	Route::get('/', 'IndexController@getLandingPage');
-
+	
 	Route::get('/article/{id}', 'IndexController@showArticle');
+	Route::get('/profile/{id}', 'IndexController@showUserProfile');
 
 	Route::get('/login', 'LoginController@getLogin');
 	Route::get('/logout', 'LoginController@getLogout');
-	Route::post('/loginpost', 'LoginController@postLogin');
+	Route::post('/login', 'LoginController@postLogin');
 
-	Route::get('/profile/{id}', 'IndexController@getUserProfile');
 
 	Route::group(['middleware' => 'sslogin'], function(){
 

@@ -25,7 +25,7 @@ class IndexController extends Controller
     public function getLandingPage(Request $request)
     {
         // 获取文章数据
-        $posts = Article::latest()->verified()->published()
+        $posts = Article::latest('published_at')->verified()->published()
         ->paginate(config('site.posts_per_page'));
 
         // 获取活动信息
@@ -44,10 +44,10 @@ class IndexController extends Controller
      */
     public function showArticle($id)
     {
-        return view('index.article')->withArticle(Article::decodefind($id));
+        return view('index.article')->withArticle(Article::decodeFind($id));
     }
 
-    public function getUserProfile($id)
+    public function showUserProfile($id)
     {
 
     }

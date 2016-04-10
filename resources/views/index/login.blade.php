@@ -14,7 +14,7 @@
           </div> 
         @endif
         <div class="form">
-          {!! Form::open(['url'=>'/loginpost']) !!}
+          {!! Form::open(['url'=>'/login']) !!}
               <div class="form-group">
                   {!! Form::label('sid','学号:') !!}
                   {!! Form::text('sid',null, ['class'=>'form-control']) !!}

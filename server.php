@@ -13,7 +13,7 @@
  * @framework    Laravel 5.1.33 LTS
  * @author 	     Sunshine Studio, Research & Design Center, 2016 Project Group [Unnamed]
  * @director 	 Cornwallis Cheng <ktpt@me.com> <Als_ktpt | Saberchan2014>
- * @version      alpha version 0.6.4
+ * @version      alpha version 0.6.8
  */
 
 $uri = urldecode(

@@ -45,18 +45,19 @@ class SunshineAuth{
 	{
 		session([
 			'Sunshineid' => $uid,
-			/* Laravel 原生登陆session 配合Laravel自带的权限控制ACL&Gate/Policy
-			（本已修改系统底层，但底层代码在0.4.9版本遗失。
-			2018年以后laravel5.1 LTS不再提供安全支持
-			此后若欲重构底层，权限与认证可参照Auth/Guard 以及 Access/Gate 等）*/
+			/** Laravel 原生登陆session 配合Laravel自带的权限控制ACL&Gate/Policy
+			*	（本已修改系统底层，但底层代码在0.4.9版本遗失。
+			* 	2018年6月以后laravel5.1 LTS不再提供安全支持，此后若需要操作底层代码，
+			*  	权限与认证可参照Auth/Guard 以及 Access/Gate 等）
+			**/
 			'login_'.md5('Illuminate\Auth\Guard') => $uid,
 			]);
 	}
 
 
 	/**
-	 * 用户信息获取函数   view使用Auth::user 和 SAuth::user 效果相同
-	 * 					 Controller中 使用哪个Facade就使用哪个
+	 * 用户信息获取函数   Auth::user 和 SAuth::user 效果相同
+	 * 					使用哪个Facade就使用哪个
 	 * @author als_ktpt
 	 */
 	public function user()

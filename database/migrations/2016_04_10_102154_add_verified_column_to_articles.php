@@ -13,9 +13,12 @@ class AddVerifiedColumnToArticles extends Migration
     public function up()
     {
         Schema::table('articles', function (Blueprint $table) {
-            $table->boolean('verified')->nullable()->default(false);
+            $table->boolean('verified')->nullable()->default(true);
         });
         Schema::table('article_anthology', function($table) {
+            $table->boolean('verified')->nullable()->default(false);
+        });
+        Schema::table('activities', function($table) {
             $table->boolean('verified')->nullable()->default(false);
         });
     }
@@ -31,6 +34,9 @@ class AddVerifiedColumnToArticles extends Migration
             $table->dropColumn('verified');
         });
         Schema::table('article_anthology', function($table) {
+            $table->dropColumn('verified');
+        });
+        Schema::table('activities', function($table) {
             $table->dropColumn('verified');
         });
     }
