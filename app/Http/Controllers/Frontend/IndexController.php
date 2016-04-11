@@ -6,7 +6,8 @@ use SAuth;
 use Carbon\Carbon;
 
 use App\Article;
-use App\Activity;
+use App\Anthology;
+use App\Collection;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -28,14 +29,18 @@ class IndexController extends Controller
         $posts = Article::latest('published_at')->verified()->published()
         ->paginate(config('site.posts_per_page'));
 
-        // 获取活动信息
-        $activities = Activity::where('start_at', '>=', Carbon::yesterday())
-        ->orderBy('start_at', 'desc')->get();
+        // 获取文集
+        $anthologies = Anthology::all();
         
         // 渲染视图 
-        return view('landing', compact('posts','activities'));
+        return view('landing', compact('posts','anthologies'));
     }
 
+
+    public function getCollectionPage($uri)
+    {
+        dd(Collection::whereUri($uri)->get());
+    }
     /**
      * Display the specified resource.
      *
@@ -44,6 +49,7 @@ class IndexController extends Controller
      */
     public function showArticle($id)
     {
+        dd(Article::decodeFind($id)->anthology()->name);
         return view('index.article')->withArticle(Article::decodeFind($id));
     }
 

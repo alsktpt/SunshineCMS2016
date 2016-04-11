@@ -9,7 +9,6 @@
     @can('edit-post')
         <a href="#">网站编辑入口</a>
     @endcan
-    <h5>Page {{ $posts->currentPage() }} of {{ $posts->lastPage() }}</h5>
     <hr>
     <ul>
     @foreach ($posts as $post)
@@ -25,13 +24,12 @@
     @endforeach
     </ul>
     <hr>
-    {!! $posts->render() !!}
-    <hr>
     <ul>
-    @foreach ($activities as $act)
+    @foreach ($anthologies as $anthology)
         <li>
-            <p>{{ $act->name }}</p>
-            <em>({{ $act->start_at }})</em>
+            <a href="{{ url('anthology', base64_encode($anthology->id)) }}">
+                {{ $anthology->name }}
+            </a>
         </li>
     @endforeach
     </ul>

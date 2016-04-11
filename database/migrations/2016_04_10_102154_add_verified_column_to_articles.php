@@ -13,13 +13,18 @@ class AddVerifiedColumnToArticles extends Migration
     public function up()
     {
         Schema::table('articles', function (Blueprint $table) {
-            $table->boolean('verified')->nullable()->default(true);
+            $table->boolean('verified')->default(true);
         });
-        Schema::table('article_anthology', function($table) {
-            $table->boolean('verified')->nullable()->default(false);
+        Schema::table('anthology_article', function($table) {
+            $table->boolean('verified')->default(false);
+            $table->integer('verified_user');
+            $table->timestamps();
+        });
+        Schema::table('anthology_user', function($table) {
+            $table->boolean('verified')->default(false);
         });
         Schema::table('activities', function($table) {
-            $table->boolean('verified')->nullable()->default(false);
+            $table->boolean('verified')->default(false);
         });
     }
 
@@ -33,9 +38,15 @@ class AddVerifiedColumnToArticles extends Migration
         Schema::table('articles', function (Blueprint $table) {
             $table->dropColumn('verified');
         });
-        Schema::table('article_anthology', function($table) {
+        Schema::table('anthology_article', function($table) {
             $table->dropColumn('verified');
+            $table->dropColumn('verified_user');
+            $table->dropColumn('created_at');
+            $table->dropColumn('updated_at');
         });
+        Schema::table('anthology_user', function($table) {
+            $table->dropColumn('verified');
+        }); 
         Schema::table('activities', function($table) {
             $table->dropColumn('verified');
         });

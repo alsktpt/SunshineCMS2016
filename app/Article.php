@@ -26,9 +26,11 @@ class Article extends Model
     }
 
 
-    public function assignAnthology(Anthology $anth)
+    public function assignAnthology($anth)
     {
-        return $this->anthologies()->save($anth);
+        return $this->anthologies()->save(
+            Anthology::findOrFail($anth)
+            );
     }
 
 

@@ -38,7 +38,7 @@ class PostController extends Controller
 		$new['user_id'] = Auth::user()->id;
         $new['last_editor_id'] = Auth::user()->id;
         $new['published_at'] = $this->createCarbon();
-        $new['verified'] = config('article_default_verified');
+        $new['verified'] = config('site.article_default_verified');
 
 		if (Article::create($new)) {
 			return Redirect::to('/');
@@ -87,9 +87,8 @@ class PostController extends Controller
         $article = Article::decodeFind(Input::get('id'));
         $this->authorize('canEdit', $article);
 
-        $update = $request->except(['id', 'define_published_at' , 'published_date', 'published_time']);
+        $update = clean($request->except(['id', 'define_published_at' , 'published_date', 'published_time']));
         $update['last_editor_id'] = Auth::user()->id;
-
         if(Input::get('define_published_at') !== null)
         {
             $update['published_at'] = $this->createCarbonByUserDefine();

@@ -70,6 +70,13 @@ class User extends Model implements AuthenticatableContract,
         );
     }
 
+    public function becomeEditorofAnthology($anthology)
+    {
+        return $this->belongsToanthology()->save(
+                Anthology::findOrFail($anthology)
+            );
+    }
+
     public function owns($post)
     {
         return $this->id === $post->user_id;
@@ -80,7 +87,15 @@ class User extends Model implements AuthenticatableContract,
         return $this->hasMany(Articles::class);
     }
 
+    public function belongsToAnthology()
+    {
+        return $this->belongsToMany(Anthology::class);
+    }
 
+    public function hasManyAnthology()
+    {
+        return $this->hasMany(Anthology::class, 'creater_id', 'id');
+    }
 
 
     public static function nickname($id)

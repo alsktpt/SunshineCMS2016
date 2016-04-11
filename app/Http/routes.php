@@ -10,6 +10,16 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::group(['namespace' => 'Api'], function(){
+	Route::resource('/api/post', 'UserController');
+});
+
+
+Route::group(['namespace' => 'Backend'], function(){
+
+});
+
+
 Route::group(['namespace' => 'Frontend'], function(){
     // Controllers Within The "App\Http\Controllers\Frontend" Namespace
 	Route::get('/', 'IndexController@getLandingPage');
@@ -32,14 +42,13 @@ Route::group(['namespace' => 'Frontend'], function(){
 		Route::post('/post', 'PostController@store');
 
 	});
+
+	Route::get('/{uri}', 'IndexController@getCollectionPage');
+
+
 });
 
-Route::group(['namespace' => 'Backend'], function(){
 
-});
 
-Route::group(['namespace' => 'Api'], function(){
-	Route::resource('/api/post', 'UserController');
-});
 
 
