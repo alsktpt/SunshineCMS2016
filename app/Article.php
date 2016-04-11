@@ -26,6 +26,12 @@ class Article extends Model
     }
 
 
+    public function assignAnthology(Anthology $anth)
+    {
+        return $this->anthologies()->save($anth);
+    }
+
+
     public function scopeVerified($query)
     {
         $query->where('verified', '1');

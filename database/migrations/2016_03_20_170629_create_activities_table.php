@@ -30,7 +30,7 @@ class CreateActivitiesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('activitys');
+        Schema::drop('activities');
         //
     }
 }
