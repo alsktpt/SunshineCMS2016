@@ -15,7 +15,7 @@ class CreateAnthologiesTable extends Migration
         Schema::create('anthologies', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('creater_id')->index();
+            $table->integer('creator_id')->index();
             $table->integer('collection_id');
             $table->boolean('protected')->default(false);
             $table->boolean('privated')->default(true);

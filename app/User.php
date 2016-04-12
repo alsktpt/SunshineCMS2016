@@ -28,7 +28,7 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $fillable = ['name', 'sid', 'nickname', 'grade', 'email', 'password'];
+    protected $fillable = ['name', 'sid', 'nickname', 'grade', 'email', 'password', 'salt', 'last_login_ip'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -94,7 +94,7 @@ class User extends Model implements AuthenticatableContract,
 
     public function hasManyAnthology()
     {
-        return $this->hasMany(Anthology::class, 'creater_id', 'id');
+        return $this->hasMany(Anthology::class, 'creator_id', 'id');
     }
 
 

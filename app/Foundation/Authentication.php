@@ -60,9 +60,10 @@ trait Authentication
         ]);
 
         $credentials = $this->getCredentials($request);
+        $loginIp = $this->getIp($request);
 
         if ($this->loginAttempt($credentials)) {
-            return $this->handleUserWasAuthenticated($credentials, $request->has('remember'));
+            return $this->handleUserWasAuthenticated($credentials, $request->has('remember'), $loginIp);
         }
 
         return redirect($this->loginPath())
@@ -86,7 +87,7 @@ trait Authentication
 
             if (SAuth::passwordVerify($credentials['password'], $Oldmember[0]->password, $Oldmember[0]->salt)) 
             {
-                /* 新 框架 用户内容表是否创建*/
+                /* 框架 用户表是否创建*/
                 if ($this->isUserinNewTable($Oldmember[0]->sid)) {
                     return True;
                 }
@@ -132,20 +133,26 @@ trait Authentication
         $new['sid'] = $user->idcard->sid;
         $new['nickname'] = $user->nickname;
         $new['email'] = $user->email;
+        $new['password'] = $user->password;
+        $new['salt'] = $user->salt;
         return User::create($new);
     }
 
+
     /**
      * Send the response after the user was authenticated.
-     *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  array   $credentials [description]
+     * @param  boolean $remember    [description]
+     * @param  [type]  $loginIp     [description]
      * @return \Illuminate\Http\Response
      */
-    protected function handleUserWasAuthenticated(array $credentials = [], $remember = FALSE)
+    protected function handleUserWasAuthenticated(array $credentials = [], $remember = FALSE, $loginIp)
     {
-        $user = User::where('sid', $credentials[$this->loginUsername()])->get();
+        $user = User::where('sid', $credentials[$this->loginUsername()])->firstOrFail();
         /*建立用户session 传参为用户内容表的id*/
-        SAuth::createSession($user[0]->id);
+        SAuth::createSession($user->id, $user->last_login_ip);
+        $updateip['last_login_ip'] = $loginIp;
+        $user->update($updateip);
         return redirect()->intended($this->getRedirectPath());
     }
 
@@ -173,6 +180,11 @@ trait Authentication
     protected function getCredentials(Request $request)
     {
         return $request->only($this->loginUsername(), 'password');
+    }
+
+    protected function getIp(Request $request)
+    {
+        return $request->ip();
     }
 
     /**

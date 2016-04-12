@@ -39,7 +39,16 @@ class IndexController extends Controller
 
     public function getCollectionPage($uri)
     {
-        dd(Collection::whereUri($uri)->get());
+        $collection = Collection::whereUri($uri)->firstOrFail();
+
+        $posts = Article::latest('published_at')->verified()->published()
+        ->paginate(config('site.posts_per_page'));
+        $anthologies = Anthology::whereCollectionId($collection['id'])->get();
+        foreach ($anthologies as $anthology) {
+            dump($anthology->articles);
+        }
+        dd();
+        return view('theme.'.$collection['theme'].'.home', compact('posts','anthologies'));
     }
     /**
      * Display the specified resource.
@@ -49,7 +58,11 @@ class IndexController extends Controller
      */
     public function showArticle($id)
     {
-        dd(Article::decodeFind($id)->anthology()->name);
+        $anthologies = Article::decodeFind($id)->anthologies;
+        foreach ($anthologies as $anthology) {
+            dump($anthology->name);
+        }
+        dd();
         return view('index.article')->withArticle(Article::decodeFind($id));
     }
 

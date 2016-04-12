@@ -37,11 +37,12 @@ class SunshineAuth{
 	}
 	
 	/**
-	 * 创建登陆session
-	 * @param  [type] $uid [description]
+	 * [createSession description]
+	 * @param  [string] $uid [description]
+	 * @param  [string] $ip  [description]
 	 * @return [type]      [description]
 	 */
-	public function createSession($uid)
+	public function createSession($uid, $ip)
 	{
 		session([
 			'Sunshineid' => $uid,
@@ -51,6 +52,7 @@ class SunshineAuth{
 			*  	权限与认证可参照Auth/Guard 以及 Access/Gate 等）
 			**/
 			'login_'.md5('Illuminate\Auth\Guard') => $uid,
+			'last_login' => $ip,
 			]);
 	}
 

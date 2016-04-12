@@ -16,7 +16,8 @@ class CreateCollectionsTable extends Migration
             $table->increments('id');
             $table->string('uri');
             $table->string('name');
-            $table->string('template');
+            $table->string('title');
+            $table->string('theme');
             $table->timestamps();
         });
     }
