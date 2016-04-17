@@ -21,19 +21,19 @@
                         <div class="col-lg-6" id='collection'>
                             <form role="form" @submit.prevent="collectionCreate">
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="站点名称" v-model='name'>
+                                    <input name='sitename' class="form-control" placeholder="站点名称" v-model='name'>
                                     <p class="help-block">示例：<code>史量才记者中心</code></p>
                                     <p class="help-block">这里的名称仅作为管理标识。</p>
                                 </div>
 
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="子站点域名" v-model='url'>
+                                    <input name='siteurl' class="form-control" placeholder="子站点域名" v-model='url'>
                                     <p class="help-block">示例：<code>rdblog</code>、<code>bbs</code></p>
                                     <p class="help-block">允许使用下划线，除此之外请不要输入其他符号。</p>
                                 </div>
 
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="站点标题" v-model='title'>
+                                    <input name='sitetitle' class="form-control" placeholder="站点标题" v-model='title'>
                                     <p class="help-block">示例：<code>2016新生专题-阳光网站</code></p>
                                     <p class="help-block">这里的内容将会出现在子站点的<code>title</code>属性中。</p>
                                 </div>
@@ -52,12 +52,12 @@
                                     <label>站点状态</label>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="on" checked v-model='status'>开启
+                                            <input type="radio" name="onoff" id="siteon" value="1" checked v-model='status'>开启
                                         </label>
                                     </div>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="off" v-model='status'>关闭
+                                            <input type="radio" name="oonoff" id="siteoff" value="0" v-model='status'>关闭
                                         </label>
                                     </div>
                                 </div>
@@ -95,7 +95,7 @@
         el:'#collection',
         data:{
             name: '',
-            uri: '',
+            url: '',
             title: '',
             template: '',
             status: '',
@@ -104,12 +104,15 @@
             collectionCreate : function(e){
                 this.$http.post('/api/collection', { 
                     name : this.name, 
-                    url: this.url,
+                    uri: this.url,
                     title: this.title,
-                    template: this.template,
+                    theme: this.template,
                     status: this.status,
                     }, function(response){
-                    console.log(response);
+                    if (response.status == '201') {
+                        alert('创建成功');
+                        window.location = '/ssbackend';
+                    }
                 })
             }
         }

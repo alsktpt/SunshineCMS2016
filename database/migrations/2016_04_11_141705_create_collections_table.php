@@ -18,6 +18,7 @@ class CreateCollectionsTable extends Migration
             $table->string('name');
             $table->string('title');
             $table->string('theme');
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }

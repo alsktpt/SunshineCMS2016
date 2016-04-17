@@ -11,15 +11,18 @@
 |
 */
 Route::group(['namespace' => 'Api'], function(){
-
 	Route::resource('/api/collection', 'CollectionController');
+	// Route::resource('/api/anthology', 'AnthologyController');
+	// Route::resouce('/api/user', 'UserController');
 });
 
 
 Route::group(['namespace' => 'Backend'], function(){
 	Route::group(['middleware' => 'ssadmin'], function() {
 	    Route::get('/ssbackend', 'IndexController@getIndexPage');
+
 	    Route::get('/ssbackend/collection', 'IndexController@getCreateCollection');
+	    Route::get('/ssbackend/collectionlist', 'IndexController@getCollectionListPage');
 	    Route::get('/ssbackend/collection/{uri}', 'IndexController@showCollection');
 	});
 });
@@ -50,6 +53,8 @@ Route::group(['namespace' => 'Frontend'], function(){
 
 	Route::get('/{uri}', 'IndexController@getCollectionPage');
 	Route::get('/{uri}/anthologies', 'IndexController@showCollectionAnthologies');
+	Route::get('/{uri}/anthology/{id}', 'IndexController@showCollectionAntholgy');
+	Route::get('/{uri}/post/{id}', 'IndexController@showCollectionArticle');
 
 });
 

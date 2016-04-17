@@ -37,7 +37,7 @@ class IndexController extends Controller
     }
 
     /**
-     * [getCollectionPage description]
+     * 进入子站点首页
      * @param  [type] $uri [description]
      * @return [type]      [description]
      */
@@ -45,42 +45,81 @@ class IndexController extends Controller
     {
         $collection = Collection::whereUri($uri)->firstOrFail();
 
-        $anthologies = Anthology::whereCollectionId($collection['id'])->get();
-
-        foreach ($anthologies as $anthology) 
+        $anthologies = Anthology::whereCollectionId($collection['id'])->get()->toArray();
+        
+        if ($anthologies === []) {
+            $posts = [];
+        }
+        else
         {
-            foreach ($anthology->articles as $article) 
+            foreach ($anthologies as $anthology) 
             {
-                $posts[$article->id] = $article;
+                foreach ($anthology->articles as $article) 
+                {
+                    $posts[$article->id] = $article;
+                }
             }
         }
-        return view('theme.'.$collection['theme'].'.home', compact('posts','anthologies'));
+
+        return view($this->getThemeHome($collection), compact('posts','anthologies', 'collection'));
+    }
+    
+    private function show($id, $collecionUri = '')
+    {
+        if ($collecionUri === '')
+        {
+            // $this->
+        }        
     }
     /**
-     * Display the specified resource.
+     * 显示文章
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function showArticle($id)
     {
-        $anthologies = Article::decodeFind($id)->anthologies;
-        foreach ($anthologies as $anthology) {
-            dump($anthology->name);
-        }
-        dd();
+        $this->show($id);
         return view('frontend.article')->withArticle(Article::decodeFind($id));
     }
-
+    /**
+     * 显示子站点的文章分类
+     * @param  [type] $uri [description]
+     * @return [type]      [description]
+     */
     public function showCollectionAnthologies($uri)
     {
         $anthologies = Anthology::whereCollectionId(Collection::whereUri($uri)->firstOrFail()->id)->get();
         dd($anthologies);
     }
 
+    /**
+     * 显示子站点的文章列表
+     * @param  [type] $uri [description]
+     * @param  [type] $id  [description]
+     * @return [type]      [description]
+     */
+    public function showCollecionAntholgy($uri, $id)
+    {
+        
+    }
+
+    public function showCollecionAritcle($uri, $id)
+    {
+        # code...
+    }
+
     public function showUserProfile($id)
     {
 
+    }
+
+
+    private function getThemeHome($collection)
+    {
+        return isset($collection['theme'])
+        ? 'theme.'.$collection['theme'].'.home'
+        : 'frontend.home';
     }
 
 

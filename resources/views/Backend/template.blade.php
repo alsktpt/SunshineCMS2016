@@ -324,11 +324,22 @@
                                 <li>
                                     <a href="{{ url('/ssbackend/collection') }}">创建子站</a>
                                 </li>
-                                <?php $collections = \App\Collection::all()->toArray(); ?>
-                                @if (count($collections) > 0)
-                                    @foreach ($collections as $collection)
-                                        <li><a href="#">$collection->name</a></li>
-                                    @endforeach
+                                <li>
+                                    <a href="{{ url('/ssbackend/collectionlist') }}">子站列表</a>
+                                </li>
+                                @if (config('site.showCollectionList_at_Sidebar'))
+                                    <li>
+                                        <a href="#">子站管理 <span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                            <?php $collections = \App\Collection::all()->toArray(); ?>
+                                            @if (count($collections) > 0)
+                                                @foreach ($collections as $collection)
+                                                    <li><a href="#">{{ $collection['name'] }}</a></li>
+                                                @endforeach
+                                            @endif
+                                        </ul>
+                                        <!-- /.nav-third-level -->
+                                    </li>
                                 @endif
                             </ul>
                             <!-- /.nav-second-level -->

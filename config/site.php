@@ -6,5 +6,6 @@ return [
         'article_default_verified' => true,
 
         'loginpath' => '/login',
+        'showCollectionList_at_Sidebar' => true,
 ];
 

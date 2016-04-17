@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+
 use Gate;
+use App\Collection;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -16,7 +18,7 @@ class CollectionController extends Controller
      */
     public function index()
     {
-        //
+        return Collecion::all();
     }
 
     /**
@@ -38,7 +40,10 @@ class CollectionController extends Controller
     public function store(Request $request)
     {
         if (! Gate::allows('enter-backend')) {
-            # code...
+            return response()->json(['error' => 'Unauthorized!'], 401);
+        }
+        if (Collection::create($request->all())) {
+            return response()->json(['status' => '201', 'message' => 'Success!'], 201);
         }
     }
 
