@@ -32,5 +32,6 @@ class Kernel extends HttpKernel
 
         
         'sslogin' => \App\Http\Middleware\SunshineLogined::class,
+        'ssadmin' => \App\Http\Middleware\SunshineAdmin::class,
     ];
 }

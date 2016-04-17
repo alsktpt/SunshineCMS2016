@@ -6,8 +6,11 @@
         <h2><a href="/login">未登录</a></h2>
     @endif
     
-    @can('edit-post')
-        <a href="#">网站编辑入口</a>
+    @can('edit-all-posts')
+        <a href="#">编辑入口</a>
+    @endcan
+    @can('enter-backend')
+        <a href="/ssbackend">网站后台</a>
     @endcan
     <hr>
     <ul>

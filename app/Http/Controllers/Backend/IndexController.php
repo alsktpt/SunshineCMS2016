@@ -7,26 +7,26 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class CollectionController extends Controller
+class IndexController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * 后台首页
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getIndexPage()
     {
-        //
+        return view('backend.index');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * 创建子站页面
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function getCreateCollection()
     {
-        //
+        return view('backend.createCollection');
     }
 
     /**

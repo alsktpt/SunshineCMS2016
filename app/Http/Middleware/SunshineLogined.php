@@ -7,9 +7,6 @@ use SAuth;
 
 class SunshineLogined
 {
-
-
-    protected $loginpath = '/login';
     
     /**
      * Handle an incoming request.
@@ -26,13 +23,13 @@ class SunshineLogined
         /*登陆后跳转地址记录*/
         SAuth::setRedirect($request);
 
-        if ($userInfo === FALSE) {
-            return redirect($this->loginpath); 
-        }else
+        if ($userInfo !== FALSE) 
         {
             return isset($userInfo)
             ? $next($request)
-            : redirect($this->loginpath);
+            : redirect(SAuth::getLoginPath());
         }
+
+        return redirect(SAuth::getLoginPath()); 
     }
 }

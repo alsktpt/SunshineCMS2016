@@ -1,3 +1,9 @@
+## alpha version 0.7.6(2016/4/12)
+	1：Collection - Anthology - Article框架体系建立
+	2：Migration系统的合并与修复，现在执行php artisan Migrate不会出错了
+	3：User - Anthology 关系的建立
+	4：对接旧用户中心，将Salt一并存入新数据库，为优化新用户系统做准备
+	
 ## alpha version 0.6.8(2016/4/10)
 
 	1：文章审核功能

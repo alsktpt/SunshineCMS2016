@@ -34,7 +34,7 @@ class LoginController extends Controller
     // 登陆路由
     protected $loginPath = '/login';
 	// Blade模板文件
-    protected $loginView = 'index.login';
+    protected $loginView = 'frontend.login';
     // 重定向路由
     protected $redirectPath = '/';
 	// 用户名字段名称

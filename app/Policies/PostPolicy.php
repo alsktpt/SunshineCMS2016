@@ -21,7 +21,7 @@ class PostPolicy
 
     public function canEdit(\App\User $user, \App\Article $article)
     {
-        if (! Gate::allows('edit-post')) {
+        if (! Gate::allows('edit-all-posts')) {
             return $user->owns($article);
         }
         else

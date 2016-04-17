@@ -23,9 +23,6 @@ class AddVerifiedColumnToArticles extends Migration
         Schema::table('anthology_user', function($table) {
             $table->boolean('verified')->default(false);
         });
-        Schema::table('activities', function($table) {
-            $table->boolean('verified')->default(false);
-        });
     }
 
     /**
@@ -47,8 +44,5 @@ class AddVerifiedColumnToArticles extends Migration
         Schema::table('anthology_user', function($table) {
             $table->dropColumn('verified');
         }); 
-        Schema::table('activities', function($table) {
-            $table->dropColumn('verified');
-        });
     }
 }

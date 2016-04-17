@@ -22,7 +22,7 @@ class Article extends Model
     
     public function anthologies()
     {
-        return $this->belongsToMany(Anthology::class);
+        return $this->belongsToMany(Anthology::class)->withTimestamps();
     }
 
 

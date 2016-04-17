@@ -1,19 +1,19 @@
 <?php
 
 /**
+ * 阳光网站内容管理框架
+ *
+ * @package      Laravel 5.1.33 LTS - A PHP Framework For Web Artisans
+ * @author 	     Sunshine Studio, Research & Design Center, 2016 Project Group [Unnamed]
+ * @director 	 Cornwallis Cheng <ktpt@me.com> <Als_ktpt | Saberchan2014>
+ * @version      alpha version 0.7.6
+ */
+
+/**
  * Laravel - A PHP Framework For Web Artisans
  *
  * @package  Laravel
  * @author   Taylor Otwell <taylorotwell@gmail.com>
- */
-
-/**
- * 阳光网站内容管理框架
- *
- * @framework    Laravel 5.1.33 LTS
- * @author 	     Sunshine Studio, Research & Design Center, 2016 Project Group [Unnamed]
- * @director 	 Cornwallis Cheng <ktpt@me.com> <Als_ktpt | Saberchan2014>
- * @version      alpha version 0.6.8
  */
 
 $uri = urldecode(

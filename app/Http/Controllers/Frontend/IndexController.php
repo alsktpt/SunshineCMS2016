@@ -36,18 +36,24 @@ class IndexController extends Controller
         return view('landing', compact('posts','anthologies'));
     }
 
-
+    /**
+     * [getCollectionPage description]
+     * @param  [type] $uri [description]
+     * @return [type]      [description]
+     */
     public function getCollectionPage($uri)
     {
         $collection = Collection::whereUri($uri)->firstOrFail();
 
-        $posts = Article::latest('published_at')->verified()->published()
-        ->paginate(config('site.posts_per_page'));
         $anthologies = Anthology::whereCollectionId($collection['id'])->get();
-        foreach ($anthologies as $anthology) {
-            dump($anthology->articles);
+
+        foreach ($anthologies as $anthology) 
+        {
+            foreach ($anthology->articles as $article) 
+            {
+                $posts[$article->id] = $article;
+            }
         }
-        dd();
         return view('theme.'.$collection['theme'].'.home', compact('posts','anthologies'));
     }
     /**
@@ -63,7 +69,13 @@ class IndexController extends Controller
             dump($anthology->name);
         }
         dd();
-        return view('index.article')->withArticle(Article::decodeFind($id));
+        return view('frontend.article')->withArticle(Article::decodeFind($id));
+    }
+
+    public function showCollectionAnthologies($uri)
+    {
+        $anthologies = Anthology::whereCollectionId(Collection::whereUri($uri)->firstOrFail()->id)->get();
+        dd($anthologies);
     }
 
     public function showUserProfile($id)

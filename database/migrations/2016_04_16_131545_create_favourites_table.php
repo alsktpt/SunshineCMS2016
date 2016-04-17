@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateActivitiesTable extends Migration
+class CreateFavouritesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,11 @@ class CreateActivitiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('activities', function (Blueprint $table) {
+        Schema::create('favourites', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('address');
-            $table->dateTime('start_at')->index();
-            $table->integer('user_id');
+            $table->integer('user_id')->unsigned();
+            $table->integer('article_id')->unsigned();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -30,7 +27,6 @@ class CreateActivitiesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('activities');
-        //
+        Schema::drop('favourites');
     }
 }

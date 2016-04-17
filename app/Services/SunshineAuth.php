@@ -97,5 +97,10 @@ class SunshineAuth{
 	}
 
 
+	public function getLoginPath()
+	{
+		return config('site.loginpath');
+	}
+
 
 }

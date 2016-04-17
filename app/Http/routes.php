@@ -11,12 +11,17 @@
 |
 */
 Route::group(['namespace' => 'Api'], function(){
-	Route::resource('/api/post', 'UserController');
+
+	Route::resource('/api/collection', 'CollectionController');
 });
 
 
 Route::group(['namespace' => 'Backend'], function(){
-
+	Route::group(['middleware' => 'ssadmin'], function() {
+	    Route::get('/ssbackend', 'IndexController@getIndexPage');
+	    Route::get('/ssbackend/collection', 'IndexController@getCreateCollection');
+	    Route::get('/ssbackend/collection/{uri}', 'IndexController@showCollection');
+	});
 });
 
 
@@ -44,7 +49,7 @@ Route::group(['namespace' => 'Frontend'], function(){
 	});
 
 	Route::get('/{uri}', 'IndexController@getCollectionPage');
-
+	Route::get('/{uri}/anthologies', 'IndexController@showCollectionAnthologies');
 
 });
 
