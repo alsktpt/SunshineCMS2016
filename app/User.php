@@ -86,6 +86,14 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->hasMany(Articles::class);
     }
+    public function comments()
+    {
+        reutrn $this->hasMany(Comment::class);
+    }
+    public function favorites()
+    {
+        return $this->belongsToMany(Article::class, 'favourites')->withTimestamps();
+    }
 
     public function belongsToAnthology()
     {
@@ -105,5 +113,7 @@ class User extends Model implements AuthenticatableContract,
         ? $user->nickname
         : '';
     }
+
+
 
 }

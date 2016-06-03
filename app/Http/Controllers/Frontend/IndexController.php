@@ -82,6 +82,14 @@ class IndexController extends Controller
         $this->show($id);
         return view('frontend.article')->withArticle(Article::decodeFind($id));
     }
+
+
+    public function showCollecionAritcle($uri, $id)
+    {
+        # code...
+    }
+
+    
     /**
      * 显示子站点的文章分类
      * @param  [type] $uri [description]
@@ -104,10 +112,6 @@ class IndexController extends Controller
         
     }
 
-    public function showCollecionAritcle($uri, $id)
-    {
-        # code...
-    }
 
     public function showUserProfile($id)
     {

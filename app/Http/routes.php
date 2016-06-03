@@ -10,20 +10,23 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-Route::group(['namespace' => 'Api'], function(){
-	Route::resource('/api/collection', 'CollectionController');
-	// Route::resource('/api/anthology', 'AnthologyController');
-	// Route::resouce('/api/user', 'UserController');
+Route::group(['namespace' => 'Api', 'prefix' => 'api'], function(){
+	Route::resource('/collection', 'CollectionController');
+	// Route::resource('/comment', 'CommentController');
+	// Route::resource('/anthology', 'AnthologyController');
+	// Route::resouce('/user', 'UserController');
+	Route::resource('/favorate', 'FavorateController');
+
 });
 
 
-Route::group(['namespace' => 'Backend'], function(){
+Route::group(['namespace' => 'Backend', 'prefix' => 'ssbackend'], function(){
 	Route::group(['middleware' => 'ssadmin'], function() {
-	    Route::get('/ssbackend', 'IndexController@getIndexPage');
+	    Route::get('/', 'IndexController@getIndexPage');
 
-	    Route::get('/ssbackend/collection', 'IndexController@getCreateCollection');
-	    Route::get('/ssbackend/collectionlist', 'IndexController@getCollectionListPage');
-	    Route::get('/ssbackend/collection/{uri}', 'IndexController@showCollection');
+	    Route::get('/collection', 'IndexController@getCreateCollection');
+	    Route::get('/collectionlist', 'IndexController@getCollectionListPage');
+	    Route::get('/collection/{uri}', 'IndexController@showCollection');
 	});
 });
 
@@ -43,8 +46,8 @@ Route::group(['namespace' => 'Frontend'], function(){
 	Route::group(['middleware' => 'sslogin'], function(){
 
 		Route::get('/user', 'UserController@index');
-		Route::get('/post', 'PostController@create');
 
+		Route::get('/post', 'PostController@create');
 		Route::get('/post/{id}', 'PostController@edit');
 		Route::post('/post/update', 'PostController@update');
 		Route::post('/post', 'PostController@store');

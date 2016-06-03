@@ -20,6 +20,11 @@ class Article extends Model
     	return $this->belongsTo(User::class);
     }
     
+    public function comments()
+    {
+        reutrn $this->hasMany(Comment::class);
+    }
+
     public function anthologies()
     {
         return $this->belongsToMany(Anthology::class)->withTimestamps();
