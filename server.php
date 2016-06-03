@@ -4,9 +4,9 @@
  * 阳光网站内容管理框架
  *
  * @package      Laravel 5.1.33 LTS - A PHP Framework For Web Artisans
- * @author 	     Sunshine Studio, Research & Design Center, 2016 Project Group [Unnamed]
+ * @author 	     Sunshine Studio, Research & Design Center, 2016 Project Group ["Renovators"]
  * @director 	 Cornwallis Cheng <ktpt@me.com> <Als_ktpt | Saberchan2014>
- * @version      alpha version 0.7.6
+ * @version      alpha version 0.8.9
  */
 
 /**

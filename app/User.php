@@ -88,7 +88,7 @@ class User extends Model implements AuthenticatableContract,
     }
     public function comments()
     {
-        reutrn $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class);
     }
     public function favorites()
     {

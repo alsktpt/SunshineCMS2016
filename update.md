@@ -1,3 +1,12 @@
+## alpha version 0.8.8(2016/6/3)
+## alpha version 0.8.7(2016/6/1)
+## alpha version 0.8.6(2016/5/31)
+## alpha version 0.8.5(2016/5/29)
+## alpha version 0.8.4(2016/5/21)
+## alpha version 0.8.3(2016/5/17)
+## alpha version 0.8.2(2016/5/15)
+## alpha version 0.8.1(2016/5/12)
+## alpha version 0.7.9(2016/5/10)
 ## alpha version 0.7.6(2016/4/12)
 	1：Collection - Anthology - Article框架体系建立
 	2：Migration系统的合并与修复，现在执行php artisan Migrate不会出错了

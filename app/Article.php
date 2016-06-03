@@ -22,7 +22,7 @@ class Article extends Model
     
     public function comments()
     {
-        reutrn $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class);
     }
 
     public function anthologies()

@@ -16,6 +16,7 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api'], function(){
 	// Route::resource('/anthology', 'AnthologyController');
 	// Route::resouce('/user', 'UserController');
 	Route::resource('/favorate', 'FavorateController');
+	Route::resource('/comment', 'CommentController');
 
 });
 
