@@ -107,19 +107,22 @@
                 }
                 else
                 {
+                    // POST
                     this.$http.post('/api/collection', { 
                         name : this.name, 
                         uri: this.url,
                         title: this.title,
                         theme: this.template,
                         status: this.status,
-                        }, function(response){
-                            if (response.status == '201') {
-                                alert('创建成功');
-                                window.location = '/ssbackend';
-                            }
-                        }
-                    );
+                        }).then((response) => {
+                            // get status
+                            alert("创建成功！");
+                            window.location = '/ssbackend';
+
+                        }, (response) => {
+                            alert("错误："+response.status+",请联系管理员。");
+                    });
+                    
                 }
             }
         }

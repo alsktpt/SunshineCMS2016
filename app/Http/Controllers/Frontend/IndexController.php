@@ -44,6 +44,9 @@ class IndexController extends Controller
     public function getCollectionPage($uri)
     {
         $collection = Collection::whereUri($uri)->firstOrFail();
+        if ($collection['status'] === 0) {
+            abort(503);
+        }
 
         $anthologies = Anthology::whereCollectionId($collection['id'])->get()->toArray();
         

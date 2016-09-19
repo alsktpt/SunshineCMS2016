@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers\Frontend;
 
-
-// 暂时留着
 use App\Http\Controllers\Controller;
 use App\Foundation\Authentication;
 
 /**
- * Laravel5.1自带ThrottlesLogins（登陆尝试次数限制）
- * 但！
- * ---しかし！
+ * Laravel 5.1自带ThrottlesLogins（限制登陆尝试次数）
+ * しかし！
  * 学校的外网访问均转接自校内服务器 ThrottlesLogins无法使用
  * ---学校のインター ネット アクセスが ThrottlesLogins モデル使用できません。
  * 1：无法对IP进行限制    

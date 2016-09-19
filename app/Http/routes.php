@@ -13,20 +13,19 @@
 Route::group(['namespace' => 'Api', 'prefix' => 'api'], function(){
 	Route::resource('/collection', 'CollectionController');
 	// Route::resource('/comment', 'CommentController');
-	// Route::resource('/anthology', 'AnthologyController');
-	// Route::resouce('/user', 'UserController');
-	Route::resource('/favorate', 'FavorateController');
-	Route::resource('/comment', 'CommentController');
-
+	Route::resource('/anthology', 'AnthologyController');
+	
+	// Route::resource('/user', 'UserController');
+	// Route::resource('/favorate', 'FavorateController');
+	// Route::resource('/post', 'PostController');
 });
 
 
 Route::group(['namespace' => 'Backend', 'prefix' => 'ssbackend'], function(){
 	Route::group(['middleware' => 'ssadmin'], function() {
 	    Route::get('/', 'IndexController@getIndexPage');
-
-	    Route::get('/collection', 'IndexController@getCreateCollection');
-	    Route::get('/collectionlist', 'IndexController@getCollectionListPage');
+	    Route::get('/collection', 'IndexController@createCollectionPage');
+	    Route::get('/collectionlist', 'IndexController@collectionListPage');
 	    Route::get('/collection/{uri}', 'IndexController@showCollection');
 	});
 });

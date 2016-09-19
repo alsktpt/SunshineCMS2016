@@ -14,7 +14,7 @@ class CollectionRequest extends Request
      */
     public function authorize()
     {
-        if (Gate::denies('enter-backend')) 
+        if (Gate::denies('@backend-collection-write')) 
         {
             return false;
         }

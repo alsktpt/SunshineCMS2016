@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 
+
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -24,47 +25,28 @@ class IndexController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getCreateCollection()
+    public function createCollectionPage()
     {
         return view('backend.createCollection');
     }
-
-    public function getCollectionListPage()
+    /**
+     * 子站列表
+     * 
+     * @return [type] [description]
+     */
+    public function collectionListPage()
     {
         return view('backend.collectionList');
     }
-
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * 显示子站细节
+     * @param  [type] $uri [description]
+     * @return [type]      [description]
      */
-    public function edit($id)
+    public function showCollection($uri)
     {
-        //
+        return view('backend.showCollection', ['uri' => $uri]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

@@ -25,10 +25,10 @@ class SunshineAdmin
 
         if ($userInfo !== FALSE)
         {
-            if (Gate::allows('enter-backend')) {
+            if (Gate::allows('@backend')) {
                 return isset($userInfo)
                 ? $next($request)
-                : redirect(SAuth::getLoginPath());
+                : abort(403);
             }
         }
 

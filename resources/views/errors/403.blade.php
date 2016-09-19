@@ -3,7 +3,7 @@
     <head>
         <title>403 Forbidden.</title>
 
-       <link href='http://fonts.useso.com/css?family=Lato:300,400,600&subset=latin,latin-ext' rel='stylesheet'>     
+       <link href='http://fonts.googleapis.com/css?family=Lato:300,400,600&subset=latin,latin-ext' rel='stylesheet'>
 
         <style>
             html, body {

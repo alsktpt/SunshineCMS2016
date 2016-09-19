@@ -2,14 +2,26 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-
 use App\Collection;
+
 use App\Http\Requests;
+
+use App\Services\CollectionEdit;
+
 use App\Http\Controllers\Controller;
 
 class CollectionController extends Controller
 {
+    /**
+     * CollectionEdit Services
+     * @var [type]
+     */
+    protected $collectionOpt;
+
+    function __construct(CollectionEdit $cole)
+    {
+        $this->collectionOpt = $cole;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,17 +29,7 @@ class CollectionController extends Controller
      */
     public function index()
     {
-        return Collecion::all();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return Collection::all();
     }
 
     /**
@@ -38,31 +40,23 @@ class CollectionController extends Controller
      */
     public function store(Requests\CollectionRequest $request)
     {
-        if (Collection::create($request->all())) {
-            return response()->json(['status' => '201', 'message' => 'Success!'], 201);
-        }
+        $newCollection = $request->all();
+
+        $this->collectionOpt->createCollection($newCollection);
+
+        return response()->json([], 201);
+        
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  string $uri
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($uri)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return Collection::findOrFail($uri);
     }
 
     /**
@@ -72,9 +66,11 @@ class CollectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Requests\CollectionRequest $request, $uri)
     {
-        //
+        $updateCollection = $request->all();
+        if ($this->collectionOpt->updateCollection($updateCollection, $uri))return response()->json([], 205);
+
     }
 
     /**
@@ -83,8 +79,9 @@ class CollectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Requests\CollectionRequest $request, $uri)
     {
-        //
+        $this->collectionOpt->deleteCollection($uri);
+        return response()->json([], 205);
     }
 }
